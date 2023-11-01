@@ -22,6 +22,8 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+        System.out.println("Multiple Texts Branch");
+
         // Get screen dimensions
         Screen primaryScreen = Screen.getPrimary();
         Rectangle2D bounds = primaryScreen.getVisualBounds();
