@@ -1,0 +1,2 @@
+java --module-path /Library/Java/JavaVirtualMachines/javafx-sdk-21.0.1/lib --add-modules javafx.controls App.java
+javac --module-path /Library/Java/JavaVirtualMachines/javafx-sdk-21.0.1/lib --add-modules javafx.controls App
