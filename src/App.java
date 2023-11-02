@@ -1,12 +1,10 @@
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.effect.Blend;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.InnerShadow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
@@ -16,15 +14,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class App extends Application {
 
     static final String NAME = "Typer";
     private int position = 0;
+    private int currentTime = 0;
 
     @Override
     public void start(Stage primaryStage) {
@@ -37,7 +36,7 @@ public class App extends Application {
         final double MAX_WIDTH = bounds.getWidth();
         final double MAX_HEIGHT = bounds.getHeight();
 
-        // Create a root node and add the textflow
+        // Create a root node
         StackPane root = new StackPane();
 
         // Background
@@ -68,6 +67,24 @@ public class App extends Application {
         textFlow.setPrefWidth(MAX_WIDTH * 0.80);
         root.getChildren().add(textFlow);
         textFlow.setPadding(new Insets(30, 60, 30, 60));
+
+        // Create timer and to root
+        Label timerLabel = new Label(Integer.toString(currentTime));
+        Color timerColor = Color.rgb(0, 210, 255);
+        timerLabel.setFont(Font.font("Menlo", FontWeight.BOLD, 60));
+        timerLabel.setTextFill(timerColor);
+        root.getChildren().add(timerLabel);
+
+        // Create a timeline for timer
+        Timeline timeline = new Timeline(
+            new KeyFrame(Duration.seconds(1), event -> {
+                currentTime++;
+                timerLabel.setText(Integer.toString(currentTime));
+            })
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
 
         // Create the scene
         Scene scene = new Scene(root, MAX_WIDTH, MAX_HEIGHT);
